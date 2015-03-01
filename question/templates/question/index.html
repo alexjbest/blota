@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="static/cardinal-master/cardinal.min.css" />
+    <title>{% block title %}Blota{% endblock %}</title>
+    <script type="text/x-mathjax-config">
+    MathJax.Ajax.config.path["Contrib"] = "//cdn.mathjax.org/mathjax/contrib";
+    MathJax.Hub.Config({
+        TeX: {
+            extensions: ["AMSmath.js", "AMSsymbols.js", "extpfeil.js", "autobold.js", "[Contrib]/xyjax/xypic.js"],
+        },
+    });
+    </script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+<body>
+{% if rand_q %}
+    <p class="h3 mt0">{{ rand_q.question }}</p>
+    <a id="answer" href="" title="Download from GitHub" class="js-version btn btn-primary md-one-third">Answer</a>
+    <br />
+    <a id="skip" href="" title="Skip question" class="js-version btn btn-secondary md-one-third">Skip</a>
+{% else %}
+    <p>No questions are available.</p>
+{% endif %}
+</body>
+</html>
