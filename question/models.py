@@ -5,3 +5,5 @@ class Question(models.Model):
     answer = models.TextField()
     times_tried = models.IntegerField()
     times_right = models.IntegerField()
+    def __str__(self):
+        return self.question
