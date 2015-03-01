@@ -22,7 +22,11 @@ class Command(BaseCommand):
                     rc.append("<ul>" + getText(node.childNodes) + "</ul>")
                 elif (node.nodeName == "li"):
                     rc.append("<li>" + getText(node.childNodes) + "</li>")
+                else: # <term>, etc.
+                    rc.append(getText(node.childNodes))
             return ''.join(rc)
+
+        # Delete all questions
         Question.objects.filter().delete()
         for filename in args:
             xmldoc = minidom.parse(filename)
