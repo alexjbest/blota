@@ -12,8 +12,16 @@ class Command(BaseCommand):
             for node in nodelist:
                 if (node.nodeType == node.TEXT_NODE):
                     rc.append(str(node.nodeValue))
-                else:
+                elif (node.nodeName == "m"):
                     rc.append("\(" + getText(node.childNodes) + "\)")
+                elif (node.nodeName == "me"):
+                    rc.append("\[" + getText(node.childNodes) + "\]")
+                elif (node.nodeName == "ol"):
+                    rc.append("<ol>" + getText(node.childNodes) + "</ol>")
+                elif (node.nodeName == "ul"):
+                    rc.append("<ul>" + getText(node.childNodes) + "</ul>")
+                elif (node.nodeName == "li"):
+                    rc.append("<li>" + getText(node.childNodes) + "</li>")
             return ''.join(rc)
         Question.objects.filter().delete()
         for filename in args:
@@ -53,4 +61,4 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
             
-            self.stdout.write('Successfully added questions for "%s"\n' % filename)
+            self.stdout.write('Successfully added questions for "%s"\n\n' % filename)
