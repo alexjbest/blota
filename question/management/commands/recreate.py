@@ -1,6 +1,7 @@
+import os
 from django.core.management.base import BaseCommand, CommandError
 from xml.dom import minidom
-from question.models import Question
+from question.models import Question, File
 
 class Command(BaseCommand):
     args = '<filename filename ...>'
@@ -28,8 +29,12 @@ class Command(BaseCommand):
 
         # Delete all questions
         Question.objects.filter().delete()
+        File.objects.filter().delete()
         for filename in args:
             xmldoc = minidom.parse(filename)
+            this_file = File(name = os.path.splitext(os.path.basename(filename))[0],
+                    preamble = getText(xmldoc.getElementsByTagName('macros')[0].childNodes)) # TODO: maybe use the xml:id instead?
+            this_file.save()
             # Definitions
             defns = xmldoc.getElementsByTagName('definition')
             for defn in defns:
@@ -37,7 +42,8 @@ class Command(BaseCommand):
                     ques = Question(question = "Define: %s" % getText(defn.getElementsByTagName("title")[0].childNodes),
                             answer = getText(defn.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
-                            times_right = 0)
+                            times_right = 0,
+                            file = this_file,)
                     ques.save()
                 else:
                     self.stdout.write("Definition with no title %s\n" % getText(defn.getElementsByTagName("statement")[0].childNodes))
@@ -52,7 +58,8 @@ class Command(BaseCommand):
                     ques = Question(question = "State: %s" % getText(prop.getElementsByTagName("title")[0].childNodes),
                             answer = getText(prop.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
-                            times_right = 0)
+                            times_right = 0,
+                            file = this_file,)
                     ques.save()
                 else:
                     self.stdout.write("Proposition with no title %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
@@ -60,7 +67,8 @@ class Command(BaseCommand):
                     ques = Question(question = "Prove: %s" % getText(prop.getElementsByTagName("statement")[0].childNodes),
                             answer = getText(prop.getElementsByTagName("proof")[0].childNodes),
                             times_tried = 1,
-                            times_right = 0)
+                            times_right = 0,
+                            file = this_file,)
                     ques.save()
                 else:
                     self.stdout.write("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
