@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="static/cardinal-master/cardinal.min.css" />
+    <link rel="stylesheet" href="/static/cardinal-master/cardinal.min.css" />
     <title>{% block title %}Blota{% endblock %}</title>
     <script type="text/x-mathjax-config">
     MathJax.Ajax.config.path["Contrib"] = "//cdn.mathjax.org/mathjax/contrib";
@@ -16,7 +16,7 @@
 
 <body>
 {% if rand_q %}
-    <div class="dn">\({{ rand_q.file.preamble }}\)</div>
+    <div class="dn">\({{ rand_q.file.preamble|safe }}\)</div>
     <p class="h3 mt0">{{ rand_q.question|safe }}</p>
     <a id="answer" href="" title="Download from GitHub" class="js-version btn btn-primary md-one-third">Answer</a>
     <br />
