@@ -43,6 +43,7 @@ class Command(BaseCommand):
                             answer = getText(defn.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
+                            q_type = Question.DEFN,
                             file = this_file,)
                     ques.save()
                 else:
@@ -59,6 +60,7 @@ class Command(BaseCommand):
                             answer = getText(prop.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
+                            q_type = Question.STATE,
                             file = this_file,)
                     ques.save()
                 else:
@@ -68,6 +70,7 @@ class Command(BaseCommand):
                             answer = getText(prop.getElementsByTagName("proof")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
+                            q_type = Question.PROVE,
                             file = this_file,)
                     ques.save()
                 else:
