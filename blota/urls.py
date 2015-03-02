@@ -8,7 +8,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'blota.views.home', name='home'),
+    url(r'^admin/', include(admin.site.urls)),
     url(r'^', include('question.urls')),
 
-    url(r'^admin/', include(admin.site.urls)),
 ) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
