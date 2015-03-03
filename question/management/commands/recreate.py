@@ -45,7 +45,7 @@ class Command(BaseCommand):
             defns = xmldoc.getElementsByTagName('definition')
             for defn in defns:
                 if (len(defn.getElementsByTagName("title")) > 0):
-                    ques = Question(question = "Define: %s" % getText(defn.getElementsByTagName("title")[0].childNodes),
+                    ques = Question(question = getText(defn.getElementsByTagName("title")[0].childNodes),
                             answer = getText(defn.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
@@ -62,7 +62,7 @@ class Command(BaseCommand):
             props = xmldoc.getElementsByTagName('proposition')
             for prop in thms + lems + props:
                 if (len(prop.getElementsByTagName("title")) > 0):
-                    ques = Question(question = "State: %s" % getText(prop.getElementsByTagName("title")[0].childNodes),
+                    ques = Question(question = getText(prop.getElementsByTagName("title")[0].childNodes),
                             answer = getText(prop.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
@@ -72,7 +72,7 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write("Proposition with no title %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
                 if (len(prop.getElementsByTagName("proof")) > 0):
-                    ques = Question(question = "Prove: %s" % getText(prop.getElementsByTagName("statement")[0].childNodes),
+                    ques = Question(question = getText(prop.getElementsByTagName("statement")[0].childNodes),
                             answer = getText(prop.getElementsByTagName("proof")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
