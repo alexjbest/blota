@@ -12,15 +12,26 @@
     });
     </script>
     <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 </head>
 
 <body>
 {% if rand_q %}
     <div class="dn">\({{ rand_q.file.preamble|safe }}\)</div>
-    <p class="h3 mt0">{{ rand_q.question|safe }}</p>
-    <a id="answer" href="" title="Answer" class="js-version btn btn-primary md-one-third">Answer</a>
+    <p class="h3 mt0">{{ rand_q.question|safe|fix_ampersands }}</p>
+    <p class="dn h3 mt0" id="answer-box">{{ rand_q.answer|safe|fix_ampersands }}</p>
+    <a id="answer" title="Answer" class="js-version btn btn-primary md-one-third">Answer</a>
     <br />
     <a id="skip" href="" title="Skip question" class="js-version btn btn-secondary md-one-third">Skip</a>
+    <script type="text/javascript">
+    $("#answer").on("click", function() {
+        $("#answer-box").toggleClass("dn");
+        $("#answer").html("Next");
+        $("#answer").off().on("click", function() {
+            location.reload();
+        });
+    });
+    </script>
 {% else %}
     <p>No questions are available.</p>
 {% endif %}
