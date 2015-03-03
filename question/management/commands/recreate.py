@@ -15,14 +15,20 @@ class Command(BaseCommand):
                     rc.append(str(node.nodeValue))
                 elif (node.nodeName == "m"):
                     rc.append("\(" + getText(node.childNodes) + "\)")
-                elif (node.nodeName == "me"):
+                elif (node.nodeName == "me") or (node.nodeName == "men"):
                     rc.append("\[" + getText(node.childNodes) + "\]")
+                elif (node.nodeName == "md"):
+                    rc.append("\\begin{align*}" + getText(node.childNodes) + "\\end{align*}")
+                elif (node.nodeName == "mrow"):
+                    rc.append(getText(node.childNodes) + "\\\\")
                 elif (node.nodeName == "ol"):
                     rc.append("<ol>" + getText(node.childNodes) + "</ol>")
                 elif (node.nodeName == "ul"):
                     rc.append("<ul>" + getText(node.childNodes) + "</ul>")
                 elif (node.nodeName == "li"):
                     rc.append("<li>" + getText(node.childNodes) + "</li>")
+                elif (node.nodeName == "xref"):
+                    rc.append(str(node.attributes["ref"].value))
                 else: # <term>, etc.
                     rc.append(getText(node.childNodes))
             return ''.join(rc)
