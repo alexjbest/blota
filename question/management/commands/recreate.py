@@ -28,7 +28,10 @@ class Command(BaseCommand):
                 elif (node.nodeName == "li"):
                     rc.append("<li>" + getText(node.childNodes) + "</li>")
                 elif (node.nodeName == "xref"):
-                    rc.append(str(node.attributes["ref"].value))
+                    if (node.childNodes):
+                        rc.append(getText(node.childNodes))
+                    else:
+                        rc.append(str(node.attributes["ref"].value))
                 else: # <term>, etc.
                     rc.append(getText(node.childNodes))
             return ''.join(rc)
