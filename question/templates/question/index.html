@@ -17,7 +17,10 @@
 
 <body>
 {% if rand_q %}
-    <div class="dn">\({{ rand_q.file.preamble|safe }}\)</div>
+    <div class="dn">\({{ rand_q.file.preamble|safe }}
+        \newcommand{\lt}{&lt;}
+        \newcommand{\gt}{&gt;}
+        \newcommand{\amp}{&amp;}\)</div>
     <p class="h3 mt0">{{ rand_q|safe|fix_ampersands }}</p>
     <div class="dn h3 mt0" id="answer-box">{{ rand_q.answer|safe|fix_ampersands }}</div>
     <a id="answer" title="Answer" class="js-version btn btn-primary md-one-third">Answer</a>
