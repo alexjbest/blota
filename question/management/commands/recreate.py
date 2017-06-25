@@ -12,7 +12,7 @@ class Command(BaseCommand):
             rc = []
             for node in nodelist:
                 if (node.nodeType == node.TEXT_NODE):
-                    rc.append(str(node.nodeValue))
+                    rc.append(unicode(node.nodeValue))
                 elif (node.nodeName == "m"):
                     rc.append("\(" + getText(node.childNodes) + "\)")
                 elif (node.nodeName == "me") or (node.nodeName == "men"):
