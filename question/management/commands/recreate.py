@@ -64,8 +64,10 @@ class Command(BaseCommand):
             lems = xmldoc.getElementsByTagName('lemma')
             props = xmldoc.getElementsByTagName('proposition')
             for prop in thms + lems + props:
+                title = u""
                 if (len(prop.getElementsByTagName("title")) > 0):
-                    ques = Question(question = getText(prop.getElementsByTagName("title")[0].childNodes),
+                    title = getText(prop.getElementsByTagName("title")[0].childNodes)
+                    ques = Question(question = title,
                             answer = getText(prop.getElementsByTagName("statement")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
@@ -75,7 +77,10 @@ class Command(BaseCommand):
                 else:
                     self.stdout.write("Proposition with no title %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
                 if (len(prop.getElementsByTagName("proof")) > 0):
-                    ques = Question(question = getText(prop.getElementsByTagName("statement")[0].childNodes),
+                    statement = getText(prop.getElementsByTagName("statement")[0].childNodes)
+                    if title:
+                        statement = title + u": " + statement
+                    ques = Question(question = statement,
                             answer = getText(prop.getElementsByTagName("proof")[0].childNodes),
                             times_tried = 1,
                             times_right = 0,
