@@ -56,7 +56,7 @@ class Command(BaseCommand):
                             file = this_file,)
                     ques.save()
                 else:
-                    self.stdout.write("Definition with no title %s\n" % getText(defn.getElementsByTagName("statement")[0].childNodes))
+                    self.stdout.write(("Definition with no title %s\n" % getText(defn.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
             
             # Statements of thms, lemmas etc.
             # Proofs of thms lemmas etc. that have them
@@ -75,7 +75,8 @@ class Command(BaseCommand):
                             file = this_file,)
                     ques.save()
                 else:
-                    self.stdout.write("Proposition with no title %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
+                    #self.stdout.write("Proposition with no title %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
+                    pass
                 if (len(prop.getElementsByTagName("proof")) > 0):
                     statement = getText(prop.getElementsByTagName("statement")[0].childNodes)
                     if title:
@@ -88,6 +89,6 @@ class Command(BaseCommand):
                             file = this_file,)
                     ques.save()
                 else:
-                    self.stdout.write("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes))
+                    self.stdout.write(("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
             
-            self.stdout.write('Successfully added questions for "%s"\n\n' % filename)
+            self.stdout.write(('Successfully added questions for "%s"\n\n' % filename).encode('utf-8'))
