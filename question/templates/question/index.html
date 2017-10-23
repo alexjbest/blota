@@ -11,7 +11,7 @@
         },
     });
     </script>
-    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 
@@ -23,7 +23,7 @@
         \newcommand{\amp}{&amp;}\)</div>
     <p class="h3 mt0">{{ rand_q|safe|fix_ampersands }}</p>
     <div class="dn h3 mt0" id="answer-box">{{ rand_q.answer|safe|fix_ampersands }}</div>
-    <a id="answer" title="Answer" class="js-version btn btn-primary md-one-third">Answer</a>
+    <a id="answer" href="#" tabindex="1" title="Answer" class="js-version btn btn-primary md-one-third">Answer</a>
     <br />
     <a id="skip" href="" title="Skip question" class="js-version btn btn-secondary md-one-third">Skip</a>
     <script type="text/javascript">
