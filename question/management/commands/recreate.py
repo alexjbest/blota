@@ -47,6 +47,9 @@ class Command(BaseCommand):
             # Definitions
             defns = xmldoc.getElementsByTagName('definition')
             for defn in defns:
+                if not defn.getElementsByTagName("statement"):
+                    self.stdout.write(("Definition with no statement %s\n" % defn.toprettyxml()).encode('utf-8'))
+                    continue
                 if (len(defn.getElementsByTagName("title")) > 0):
                     ques = Question(question = getText(defn.getElementsByTagName("title")[0].childNodes),
                             answer = getText(defn.getElementsByTagName("statement")[0].childNodes),
@@ -56,7 +59,10 @@ class Command(BaseCommand):
                             file = this_file,)
                     ques.save()
                 else:
-                    self.stdout.write(("Definition with no title %s\n" % getText(defn.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
+                    if defn.getElementsByTagName("statement"):
+                        self.stdout.write(("Definition with no title %s\n" % getText(defn.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
+                    else:
+                        self.stdout.write(("Definition with no title %s\n" % defn.toprettyxml()).encode('utf-8'))
             
             # Statements of thms, lemmas etc.
             # Proofs of thms lemmas etc. that have them
@@ -64,6 +70,9 @@ class Command(BaseCommand):
             lems = xmldoc.getElementsByTagName('lemma')
             props = xmldoc.getElementsByTagName('proposition')
             for prop in thms + lems + props:
+                if not prop.getElementsByTagName("statement"):
+                    self.stdout.write(("Proposition with no statement %s\n" % prop.toprettyxml()).encode('utf-8'))
+                    continue
                 title = u""
                 if (len(prop.getElementsByTagName("title")) > 0):
                     title = getText(prop.getElementsByTagName("title")[0].childNodes)
@@ -89,6 +98,9 @@ class Command(BaseCommand):
                             file = this_file,)
                     ques.save()
                 else:
-                    self.stdout.write(("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
+                    if prop.getElementsByTagName("statement"):
+                        self.stdout.write(("Proposition with no proof %s\n" % getText(prop.getElementsByTagName("statement")[0].childNodes)).encode('utf-8'))
+                    else:
+                        self.stdout.write(("Proposition with no proof %s\n" % prop.toprettyxml()).encode('utf-8'))
             
             self.stdout.write(('Successfully added questions for "%s"\n\n' % filename).encode('utf-8'))
